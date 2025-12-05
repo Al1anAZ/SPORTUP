@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* General colors */
+  --color-white: #ffffff;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e0e0e5;
+  --color-gray-300: #c1c4cd;
+  --color-gray-400: #0f1015;
+
+  /* Main colors */
+  --color-orange-light: #FC5B10;
+  --color-orange: #D14110;
+  --color-orange-dark: #B52808;
+
+  --color-blue-light: #B7D1FE;
+  --color-blue: #89B0FF;
+  --color-blue-dark: #002FBB;
+
+  --color-lime: #b3fe31;
+
+  /* Supplementary colors */
+  --color-red: #e23a2d;
+  --color-green: #3f8a3d;
+  --color-peach-light: #f4b98d;
+  --color-peach: #d89b76;
+  --color-brown: #8e6f5b;
+
+  /* Background / foreground defaults */
+  --background: var(--color-gray-400);
+  --foreground: var(--color-white);
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* Typography scale */
+.font-heading {
+  font-family: var(--font-oswald), var(--font-inter), sans-serif;
+}
+.font-body {
+  font-family: var(--font-inter), system-ui, -apple-system, Segoe UI, Roboto,
+    sans-serif;
+}
+
+.my-input {
+  anchor-name: --my-input;
+}
+
+.input-right-slot {
+  position: absolute;
+  top: anchor(--my-input top) 50%;
+
+  transform: translateY(50%);
+}
+
+.loader {
+  width: 24px;
+  height: 24px;
+  border: 5px solid #fff;
+  border-bottom-color: var(--color-orange-light);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

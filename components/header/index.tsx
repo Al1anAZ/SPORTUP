@@ -1,0 +1,99 @@
+import Link from "next/link";
+import { Text } from "../ui/typography";
+import { CartIcon, FavoriteIcon, SearchIcon } from "../icons";
+import { UserAuthWidget } from "../auth";
+import { ROUT } from "../../constants";
+import { Button } from "../ui/button";
+
+export const Header = () => {
+  return (
+    <header
+      className="relative py-5 flex justify-between 
+  before:content-[''] before:absolute before:bg-[var(--color-orange-light)] 
+  before:w-screen before:h-0.5 before:bottom-0 
+  before:left-1/2 before:-translate-x-1/2
+"
+    >
+      <nav aria-label="Main navigation">
+        <ul className="flex items-center justify-center h-full gap-4">
+          <li>
+            <Link href="#">
+              <Text.P link size="small">
+                Man
+              </Text.P>
+            </Link>
+          </li>
+          <li>
+            <Link href="#">
+              <Text.P link size="small">
+                Women
+              </Text.P>
+            </Link>
+          </li>
+          <li>
+            <Link href="#">
+              <Text.P link size="small">
+                Kids
+              </Text.P>
+            </Link>
+          </li>
+          <li>
+            <Link href="#">
+              <Text.P link size="small">
+                Accessories
+              </Text.P>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Link href={ROUT.HOME}>
+        <Text.H3 uppercase className="hover:text-[var(--color-blue-light)]">
+          sportup
+        </Text.H3>
+      </Link>
+      <div className="flex items-center gap-8">
+        <nav aria-label="Special or promotions actions">
+          <ul className="flex items-center justify-center h-full gap-4">
+            <li>
+              <Link href="#">
+                <Text.P link size="small">
+                  Special
+                </Text.P>
+              </Link>
+            </li>
+            <li>
+              <Link href="#">
+                <Text.P link size="small">
+                  New
+                </Text.P>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <nav aria-label="User actions">
+          <ul className="flex items-center justify-center h-full gap-3">
+            <li>
+              <Button variant="icon">
+                <SearchIcon width={24} height={24} />
+              </Button>
+            </li>
+            <li>
+              <UserAuthWidget />
+            </li>
+            <li>
+              <Link href="#" className="hover:text-[var(--color-blue-light)] transition-all duration-150">
+                  <FavoriteIcon width={24} height={24} />
+              </Link>
+            </li>
+            <li>
+              <Link href="#" className="hover:text-[var(--color-blue-light)] transition-all duration-150">
+                <CartIcon width={24} height={24} />
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+};
