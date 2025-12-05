@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { ProductItemProps } from "../../types/product";
 import { cn } from "../../utils/cn";
-import { Button } from "../ui/button";
 import { Text } from "../ui/typography";
 import Link from "next/link";
 

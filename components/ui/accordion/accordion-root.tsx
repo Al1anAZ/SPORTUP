@@ -1,12 +1,7 @@
 "use client";
 
 import { AccordionContext, AccordionType } from "./accordion-provider";
-import {
-  ComponentPropsWithoutRef,
-  RefObject,
-  useRef,
-  useState,
-} from "react";
+import { ComponentPropsWithoutRef, RefObject, useState } from "react";
 import { useGenerateId } from "../../../hooks/use-generate-id";
 import { cn } from "../../../utils/cn";
 
@@ -23,7 +18,7 @@ export const AccordionRoot = ({
   const generatedId = useGenerateId("accordion");
   const resolvedId = id || generatedId;
   const [openItems, setOpenItems] = useState<string[]>([]);
-
+  const [triggers, setTriggers] = useState<RefObject<HTMLButtonElement>[]>([]);
   const toggleItem = (value: string) => {
     setOpenItems((current) => {
       if (type === "multiple") {
@@ -37,12 +32,9 @@ export const AccordionRoot = ({
   };
 
   const isItemOpen = (value: string) => openItems.includes(value);
-  const triggers = useRef<RefObject<HTMLButtonElement>[]>([]);
 
   const registerTrigger = (ref: RefObject<HTMLButtonElement>) => {
-    if (!triggers.current.includes(ref)) {
-      triggers.current.push(ref);
-    }
+    setTriggers((prev) => (prev.includes(ref) ? prev : [...prev, ref]));
   };
 
   return (
@@ -53,7 +45,7 @@ export const AccordionRoot = ({
         openItems,
         toggleItem,
         isItemOpen,
-        triggers: triggers.current,
+        triggers,
         registerTrigger,
       }}
     >

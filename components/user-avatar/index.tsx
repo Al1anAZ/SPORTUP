@@ -42,14 +42,14 @@ export const UserAvatar = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   const previewUrl = selectedFile
-  ? URL.createObjectURL(selectedFile)
-  : undefined;
+    ? URL.createObjectURL(selectedFile)
+    : undefined;
 
   const { mutate, isPending, reset } = useMutation({
     mutationFn: UserService.updateUserAvatar,
     onSuccess: (data) => {
       updateUser({ avatarUrl: data.avatarUrl });
-      handleReset()
+      handleReset();
       toastSuccess("Your avatar updated successful");
     },
     onError: (errors: AxiosError<ApiError>) => {
@@ -59,10 +59,10 @@ export const UserAvatar = ({
   });
 
   const onFileClick = () => {
-    if (inputRef.current){
-      inputRef.current.value = ""
-      inputRef.current.click()
-    };
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.click();
+    }
   };
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,13 +75,13 @@ export const UserAvatar = ({
   const handleReset = () => {
     setSelectedFile(null);
     setIsCropping(false);
-    setCroppedAreaPixels(null)
+    setCroppedAreaPixels(null);
   };
 
   const handleUpdateUserAvatar = (newAvatar: File) => {
     const formData = new FormData();
     formData.append("file", newAvatar);
-    mutate(formData)
+    mutate(formData);
   };
 
   const handleCropComplete = useCallback(async () => {
@@ -89,22 +89,20 @@ export const UserAvatar = ({
 
     if (!croppedAreaPixels) return;
 
-    const croppedBlob = await getCroppedImg(
-      selectedFile,
-      croppedAreaPixels
-    );
+    const croppedBlob = await getCroppedImg(selectedFile, croppedAreaPixels);
     const croppedFile = new File([croppedBlob], selectedFile.name, {
       type: selectedFile.type,
     });
-    handleUpdateUserAvatar(croppedFile)
-  }, [selectedFile, crop, zoom]);
+    handleUpdateUserAvatar(croppedFile);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFile, croppedAreaPixels]);
 
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
   }, [previewUrl]);
-  
+
   return (
     <div className="flex flex-col gap-6 w-fit items-center">
       <Link
@@ -123,9 +121,7 @@ export const UserAvatar = ({
       {editable && (
         <Input>
           <Input.Label>
-            <Button onClick={onFileClick}>
-              Upload File
-            </Button>
+            <Button onClick={onFileClick}>Upload File</Button>
           </Input.Label>
           <Input.Field
             type="file"
@@ -154,7 +150,9 @@ export const UserAvatar = ({
                 aspect={1}
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
-                onCropComplete={(_, croppedPixels) => setCroppedAreaPixels(croppedPixels)}
+                onCropComplete={(_, croppedPixels) =>
+                  setCroppedAreaPixels(croppedPixels)
+                }
               />
             </div>
           </Modal.Body>

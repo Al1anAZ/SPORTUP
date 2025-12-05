@@ -12,7 +12,6 @@ import { Text } from "../ui/typography";
 export const SubscribeForm = () => {
   const { setOpen } = useModalContext();
   const {
-    reset,
     formState: { errors },
     register,
     handleSubmit,
@@ -56,7 +55,7 @@ export const SubscribeForm = () => {
         </Modal.Header>
         <Modal.Body>
           <Text.P size="small">
-            Don't miss out on the chance to save more and shop smarter!
+            Don&apos;t miss out on the chance to save more and shop smarter!
           </Text.P>
         </Modal.Body>
         <Modal.Footer className="gap-6">

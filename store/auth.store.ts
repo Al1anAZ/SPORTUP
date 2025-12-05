@@ -27,6 +27,7 @@ export const useAuthStore = create<AuthState>()(
           setUser(user);
           set({ authenticationStatus: "auth" });
         } catch (error) {
+          console.error(error)
           logout();
         }
       },

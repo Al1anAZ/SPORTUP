@@ -11,12 +11,14 @@ export const InputField = React.forwardRef<
 
   const setRefs = (el: HTMLInputElement | null) => {
     if (fieldRef) {
-      (fieldRef as any).current = el;
+      fieldRef.current = el;
     }
     if (typeof forwardedRef === "function") {
       forwardedRef(el);
-    } else if (forwardedRef && "current" in (forwardedRef as any)) {
-      (forwardedRef as any).current = el;
+    } else if (forwardedRef) {
+      (
+        forwardedRef as React.MutableRefObject<HTMLInputElement | null>
+      ).current = el;
     }
   };
 
@@ -37,3 +39,5 @@ export const InputField = React.forwardRef<
     />
   );
 });
+
+InputField.displayName = "InputField";

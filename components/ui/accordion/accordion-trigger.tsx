@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "../../../utils/cn";
 import { MinusIcon, PlusIcon } from "../../icons";
 import {
@@ -13,16 +13,20 @@ export const AccordionTrigger = (
 ) => {
   const { id, triggers, registerTrigger, toggleItem, isItemOpen } =
     useAccordionContext();
+
   const { value } = useAccordionItemContext();
   const triggerRef = useRef<HTMLButtonElement>(null!);
-  registerTrigger(triggerRef);
-
-  const index = triggers.indexOf(triggerRef);
-  const lastIndex = triggers.length - 1;
 
   const open = isItemOpen(value);
 
+  useEffect(() => {
+    registerTrigger(triggerRef);
+  }, [registerTrigger]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const index = triggers.indexOf(triggerRef);
+    const lastIndex = triggers.length - 1;
+
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       toggleItem(value);

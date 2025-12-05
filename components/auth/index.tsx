@@ -13,6 +13,7 @@ export const UserAuthWidget = () => {
 
   useEffect(() => {
     init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   switch (authenticationStatus) {

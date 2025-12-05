@@ -13,6 +13,7 @@ export const InputPasswordToggle = (
 
   useEffect(() => {
     setInputType("password");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggle = () => {
