@@ -5,19 +5,19 @@ import { cn } from "../../../utils/cn";
 import { Button } from "../../ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 
-type CardButtonProps = {
+type CartButtonProps = {
   onClick?: () => void;
   productId: string;
   className?: string;
 };
 
-export const CardButton = ({ onClick, className }: CardButtonProps) => {
-  const [isAddedToCard, setIsAddedToCard] = useState(false);
+export const CartButton = ({ onClick, className }: CartButtonProps) => {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
 
-  const handleAddToCard = () => {
-    setIsAddedToCard(true);
+  const handleAddToCart = () => {
+    setIsAddedToCart(true);
 
-    setTimeout(() => setIsAddedToCard(false), 500);
+    setTimeout(() => setIsAddedToCart(false), 500);
   };
   return (
     <Button
@@ -25,17 +25,17 @@ export const CardButton = ({ onClick, className }: CardButtonProps) => {
         e.stopPropagation();
         e.preventDefault();
         onClick?.();
-        handleAddToCard();
+        handleAddToCart();
       }}
       className={cn(
         "",
         className,
-        isAddedToCard &&
+        isAddedToCart &&
           "focus:outline-none hover:bg-[var(--color-lime)]"
       )}
     >
       <AnimatePresence mode="wait">
-        {isAddedToCard ? (
+        {isAddedToCart ? (
           <motion.span
             key="added"
             initial={{ opacity: 0, y: 6 }}

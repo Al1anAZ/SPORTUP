@@ -30,3 +30,13 @@ export const featuresAccordion = [
     },
   },
 ];
+
+export const partners = [
+  "nike",
+  "adidas",
+  "jordans",
+  "fila",
+  "puma",
+  "asics",
+  "jack wolfskin",
+];

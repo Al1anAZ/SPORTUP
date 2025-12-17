@@ -5,7 +5,7 @@ import { Text } from "../ui/typography";
 import Link from "next/link";
 import { dimensions, tagColor } from "./config";
 import { FavoriteButton } from "../actions/favorite";
-import { CardButton } from "../actions/card";
+import { CartButton } from "../actions/cart";
 import { ProductVariantProvider } from "../product-variant/variant-root";
 import { ColorSwitcher } from "../product-variant/color-switcher";
 import { ProductImage } from "../product-variant/image";
@@ -104,7 +104,7 @@ export const ProductItem = ({
                 productId=""
                 className="absolute z-10 right-4 top-4 text-[var(--color-gray-400)] opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300"
               />
-              <CardButton
+              <CartButton
                 className="absolute z-10 w-full bottom-0 h-12 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300"
                 productId=""
               />

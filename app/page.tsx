@@ -4,7 +4,8 @@ import Link from "next/link";
 import { ArrowIcon, ChevronIcon } from "../components/icons";
 import { ProductItem } from "../components/product-item";
 import { Accordion } from "../components/ui/accordion";
-import { featuresAccordion } from "../data/home-page";
+import { featuresAccordion, partners } from "../data/home-page";
+import { PartnerItem } from "../components/partner-item";
 
 export default async function Home() {
   return (
@@ -51,10 +52,12 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Accessories",
-              images: [{
-                url: "/product-temp.webp",
-                color: ""
-              }],
+              images: [
+                {
+                  url: "/product-temp.webp",
+                  color: "",
+                },
+              ],
             }}
           />
           <ProductItem
@@ -64,10 +67,12 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Man",
-              images: [{
-                url: "/product-temp.webp",
-                color: ""
-              }],
+              images: [
+                {
+                  url: "/product-temp.webp",
+                  color: "",
+                },
+              ],
             }}
           />
           <ProductItem
@@ -77,10 +82,12 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Woman",
-              images: [{
-                url: "/product-temp.webp",
-                color: ""
-              }],
+              images: [
+                {
+                  url: "/product-temp.webp",
+                  color: "",
+                },
+              ],
             }}
           />
           <ProductItem
@@ -90,10 +97,12 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Kids",
-              images: [{
-                url: "/product-temp.webp",
-                color: ""
-              }],
+              images: [
+                {
+                  url: "/product-temp.webp",
+                  color: "",
+                },
+              ],
             }}
           />
           <Link
@@ -126,6 +135,25 @@ export default async function Home() {
             </Accordion.Item>
           ))}
         </Accordion>
+      </section>
+      <section className="flex gap-x-3 gap-y-6 flex-wrap">
+        {partners.map((partner, index) => (
+          <PartnerItem key={`${partner}-${index}`} name={partner} />
+        ))}
+        <div className="flex items-center gap-4 justify-end ml-auto">
+          <Image
+            src="/shoes-main-page.webp"
+            alt="Shoes Main Page"
+            width={189}
+            height={107}
+          />
+          <Link href={"#"}>
+            <Text.P link size="large" className="flex items-center gap-3">
+              Become a partner
+              <ArrowIcon width={24} height={24} />
+            </Text.P>
+          </Link>
+        </div>
       </section>
     </main>
   );
