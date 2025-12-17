@@ -51,7 +51,10 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Accessories",
-              imgs: ["/product-temp.webp"],
+              images: [{
+                url: "/product-temp.webp",
+                color: ""
+              }],
             }}
           />
           <ProductItem
@@ -61,7 +64,10 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Man",
-              imgs: ["/product-temp.webp"],
+              images: [{
+                url: "/product-temp.webp",
+                color: ""
+              }],
             }}
           />
           <ProductItem
@@ -71,7 +77,10 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Woman",
-              imgs: ["/product-temp.webp"],
+              images: [{
+                url: "/product-temp.webp",
+                color: ""
+              }],
             }}
           />
           <ProductItem
@@ -81,7 +90,10 @@ export default async function Home() {
               id: "2",
               price: 100,
               category: "Kids",
-              imgs: ["/product-temp.webp"],
+              images: [{
+                url: "/product-temp.webp",
+                color: ""
+              }],
             }}
           />
           <Link
