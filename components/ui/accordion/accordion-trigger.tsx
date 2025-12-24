@@ -7,6 +7,7 @@ import {
   useAccordionContext,
   useAccordionItemContext,
 } from "./accordion-provider";
+import { useRovingFocus } from "../../../hooks/use-roving-focus";
 
 export const AccordionTrigger = (
   props: React.ComponentPropsWithoutRef<"button">
@@ -17,43 +18,17 @@ export const AccordionTrigger = (
   const { value } = useAccordionItemContext();
   const triggerRef = useRef<HTMLButtonElement>(null!);
 
+  const handleKeyDown = useRovingFocus<HTMLButtonElement>({
+    refs: triggers,
+    onSelect: () => toggleItem(value),
+  });
+  
   const open = isItemOpen(value);
 
   useEffect(() => {
     registerTrigger(triggerRef);
   }, [registerTrigger]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    const index = triggers.indexOf(triggerRef);
-    const lastIndex = triggers.length - 1;
-
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      toggleItem(value);
-    }
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      const next = triggers[index + 1] ?? triggers[0];
-      next?.current?.focus();
-    }
-
-    if (e.key === "ArrowUp") {
-      e.preventDefault();
-      const prev = triggers[index - 1] ?? triggers[lastIndex];
-      prev?.current?.focus();
-    }
-
-    if (e.key === "Home") {
-      e.preventDefault();
-      triggers[0]?.current?.focus();
-    }
-
-    if (e.key === "End") {
-      e.preventDefault();
-      triggers[lastIndex]?.current?.focus();
-    }
-  };
 
   return (
     <button

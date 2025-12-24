@@ -4,6 +4,7 @@ import { CartIcon, FavoriteIcon, SearchIcon } from "../icons";
 import { UserAuthWidget } from "../auth";
 import { ROUT } from "../../constants";
 import { Button } from "../ui/button";
+import { ProductTag } from "../../types/product";
 
 export const Header = () => {
   return (
@@ -17,28 +18,48 @@ export const Header = () => {
       <nav aria-label="Main navigation">
         <ul className="flex items-center justify-center h-full gap-4">
           <li>
-            <Link href="#">
+            <Link
+              href={{
+                pathname: ROUT.CATALOG,
+                query: { category: "man" },
+              }}
+            >
               <Text.P link size="small">
                 Man
               </Text.P>
             </Link>
           </li>
           <li>
-            <Link href="#">
+            <Link
+              href={{
+                pathname: ROUT.CATALOG,
+                query: { category: "woman" },
+              }}
+            >
               <Text.P link size="small">
                 Women
               </Text.P>
             </Link>
           </li>
           <li>
-            <Link href="#">
+            <Link
+              href={{
+                pathname: ROUT.CATALOG,
+                query: { category: "kids" },
+              }}
+            >
               <Text.P link size="small">
                 Kids
               </Text.P>
             </Link>
           </li>
           <li>
-            <Link href="#">
+            <Link
+              href={{
+                pathname: ROUT.CATALOG,
+                query: { category: "accessories" },
+              }}
+            >
               <Text.P link size="small">
                 Accessories
               </Text.P>
@@ -56,14 +77,24 @@ export const Header = () => {
         <nav aria-label="Special or promotions actions">
           <ul className="flex items-center justify-center h-full gap-4">
             <li>
-              <Link href="#">
+              <Link
+                href={{
+                  pathname: ROUT.CATALOG,
+                  query: { tag: ProductTag.TOP },
+                }}
+              >
                 <Text.P link size="small">
                   Special
                 </Text.P>
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href={{
+                  pathname: ROUT.CATALOG,
+                  query: { tag: ProductTag.NEW },
+                }}
+              >
                 <Text.P link size="small">
                   New
                 </Text.P>
@@ -82,12 +113,18 @@ export const Header = () => {
               <UserAuthWidget />
             </li>
             <li>
-              <Link href="#" className="hover:text-[var(--color-blue-light)] transition-all duration-150">
-                  <FavoriteIcon width={24} height={24} />
+              <Link
+                href="#"
+                className="hover:text-[var(--color-blue-light)] transition-all duration-150"
+              >
+                <FavoriteIcon width={24} height={24} />
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-[var(--color-blue-light)] transition-all duration-150">
+              <Link
+                href="#"
+                className="hover:text-[var(--color-blue-light)] transition-all duration-150"
+              >
                 <CartIcon width={24} height={24} />
               </Link>
             </li>

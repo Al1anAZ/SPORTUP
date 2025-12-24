@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext } from "react";
+import { createContext, RefObject, useContext } from "react";
 
 type SelectContextType = {
   id: string;
@@ -7,6 +7,9 @@ type SelectContextType = {
   setOpen: (next: boolean) => void;
   selectedValue: string | null;
   setSelectedValue: (value: string | null) => void;
+
+  listItems: RefObject<HTMLLIElement>[];
+  registerListItems: (ref: RefObject<HTMLLIElement>) => void; 
 };
 
 export const SelectContext = createContext<SelectContextType>(null!);

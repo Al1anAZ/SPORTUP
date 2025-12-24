@@ -2,6 +2,7 @@
 import { cn } from "../../../utils/cn";
 import { useSelectContext } from "./select-provider";
 import { ChevronIcon } from "../../icons";
+import { Text } from "../typography";
 
 export const SelectTrigger = (
   props: React.ComponentPropsWithoutRef<"button"> & { placeholder?: string }
@@ -18,18 +19,20 @@ export const SelectTrigger = (
       aria-expanded={open}
       onClick={() => setOpen(!open)}
       className={cn(
-        "flex h-10 w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3",
-        "border-[var(--color-gray-300)] text-sm text-[var(--color-foreground)]",
-        "hover:border-[var(--color-blue)] focus:border-[var(--color-blue)] outline-none transition-colors",
+        "flex h-10 w-full items-center justify-between border-b gap-2 bg-transparent cursor-pointer",
+        "hover:border-[var(--color-blue)] hover:text-[var(--color-blue)] transition-colors",
+        open && "text-[var(--color-blue)] border-[var(--color-blue)]",
         className
       )}
       {...rest}
     >
-      <span className="truncate opacity-90">{label}</span>
+      <Text.P className="truncate" size="small">{label}</Text.P>
       <ChevronIcon
+        width={24}
+        height={24}
         className={cn(
-          "h-4 w-4 text-[var(--color-gray-300)] transition-transform",
-          open && "rotate-90"
+          "transition-transform",
+          open ? "rotate-90" : "-rotate-90"
         )}
       />
     </button>

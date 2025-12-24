@@ -11,10 +11,14 @@ type Product = {
   images: ProductImage[];
   price?: number;
   category?: string;
-  tag?: Tag;
+  tag?: ProductTag;
 };
 
-type Tag = "New" | "Sale" | "Top";
+export enum ProductTag {
+  NEW = "NEW",
+  TOP = "TOP",
+  SALE = "SALE",
+}
 
 export type ProductImage = {
   url: string;

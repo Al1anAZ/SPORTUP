@@ -23,7 +23,7 @@ export const dimensions = {
 };
 
 export enum tagColor {
-  Sale = "var(--color-orange-light)",
-  New = "var(--color-blue-dark)",
-  Top = "var(--color-blue-light)",
+  SALE = "var(--color-orange-light)",
+  NEW = "var(--color-blue-dark)",
+  TOP = "var(--color-blue-light)",
 }

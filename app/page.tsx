@@ -6,6 +6,8 @@ import { ProductItem } from "../components/product-item";
 import { Accordion } from "../components/ui/accordion";
 import { featuresAccordion, partners } from "../data/home-page";
 import { PartnerItem } from "../components/partner-item";
+import { ROUT } from "../constants";
+import { ProductTag } from "../types/product";
 
 export default async function Home() {
   return (
@@ -24,7 +26,14 @@ export default async function Home() {
           before:w-4 before:h-4 before:rounded-full before:left-2 before:top-2"
         >
           <Text.H2>-30%</Text.H2>
-          <Link href={"#"}>
+          <Link
+            href={{
+              pathname: ROUT.CATALOG,
+              query: {
+                tag: ProductTag.SALE,
+              },
+            }}
+          >
             <Text.P link className="flex items-center gap-2">
               summer sales <ArrowIcon width={32} height={32} />
             </Text.P>
@@ -106,7 +115,7 @@ export default async function Home() {
             }}
           />
           <Link
-            href={"#"}
+            href={ROUT.CATALOG}
             className="hover:text-[var(--color-blue-light)] transition-all duration-150"
           >
             <ChevronIcon width={204} height={204} />
