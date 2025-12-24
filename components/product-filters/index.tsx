@@ -1,4 +1,3 @@
-import React from "react";
 import { Text } from "../ui/typography";
 import { Select } from "../ui/select";
 
@@ -12,27 +11,19 @@ export const ProductFilters = () => {
             Results - 230
           </Text.P>
         </div>
-        <Select>
-          <Select.Trigger>test</Select.Trigger>
-          <Select.List className="relative">
-            <Select.Item value={"sd"}>test</Select.Item>
-            <Select.Item value={"s3d"}>test</Select.Item>
-          </Select.List>
-        </Select>
-        <Select>
-          <Select.Trigger>test</Select.Trigger>
-          <Select.List>
-            <Select.Item value={"sd"}>test</Select.Item>
-            <Select.Item value={"s3d"}>test</Select.Item>
-          </Select.List>
-        </Select>
-        <Select>
-          <Select.Trigger>test</Select.Trigger>
-          <Select.List>
-            <Select.Item value={"sd"}>test</Select.Item>
-            <Select.Item value={"s3d"}>test</Select.Item>
-          </Select.List>
-        </Select>
+        <div className="flex flex-col gap-6">
+          {["Category", "Brand", "Size", "Color", "Price"].map(
+            (item, index) => (
+              <Select mode="multi" key={index}>
+                <Select.Trigger placeholder={item} />
+                <Select.List className="relative">
+                  <Select.Item value={"sd"}>test</Select.Item>
+                  <Select.Item value={"s3d"}>test</Select.Item>
+                </Select.List>
+              </Select>
+            )
+          )}
+        </div>
       </div>
     </section>
   );

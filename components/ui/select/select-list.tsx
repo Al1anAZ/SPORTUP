@@ -15,7 +15,7 @@ export const SelectList = ({
       role="listbox"
       id={`${id}-list`}
       className={cn(
-        "absolute z-10 mt-2 w-full overflow-hidden bg-[var(--color-gray-400)] invisible",
+        "absolute z-10 flex flex-col gap-2 mt-2 w-full overflow-hidden bg-[var(--color-gray-400)] invisible",
         open && "visible",
         className
       )}

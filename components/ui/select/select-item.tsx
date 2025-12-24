@@ -2,6 +2,9 @@
 import { useEffect, useRef } from "react";
 import { cn } from "../../../utils/cn";
 import { useSelectContext } from "./select-provider";
+import { isSelected } from "./helper/is-selected";
+import { Checkbox } from "../check-box";
+import { modeStyle } from "./helper/mode-style";
 
 export const SelectItem = (
   props: React.ComponentPropsWithoutRef<"li"> & {
@@ -10,9 +13,9 @@ export const SelectItem = (
   }
 ) => {
   const { value, className, children, disabled, ...rest } = props;
-  const { selectedValue, setSelectedValue, setOpen, registerListItems } =
+  const { selectedValue, handleSelectValue, setOpen, registerListItems, mode } =
     useSelectContext();
-  const selected = selectedValue === value;
+  const selected = isSelected(value, mode!, selectedValue);
   const listItem = useRef<HTMLLIElement>(null!);
 
   useEffect(() => registerListItems(listItem), [registerListItems]);
@@ -25,19 +28,24 @@ export const SelectItem = (
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : 0}
       onClick={() => {
-        setSelectedValue(value);
-        setOpen(false);
+        handleSelectValue(value);
+        if (mode === "single") {
+          setOpen(false);
+        }
       }}
       className={cn(
-        "cursor-pointer py-2 text-sm border-b border-b-transparent",
-        "hover:border-b-[var(--color-blue-light)] hover:text-[var(--color-blue-light)]",
-        "outline-none focus:border-b-[var(--color-white)]",
-        selected &&
-          "border-b-[var(--color-blue-light)] text-[var(--color-blue-light)]",
+        "cursor-pointer text-sm border-b border-b-transparent",
+        "flex items-center gap-2",
+        "hover:text-[var(--color-blue-light)]",
+        "outline-none",
+        modeStyle(mode, selected!),
         className
       )}
       {...rest}
     >
+      {mode === "multi" && (
+        <Checkbox checked={selected!} className="pointer-events-none" />
+      )}
       {children ?? value}
     </li>
   );
