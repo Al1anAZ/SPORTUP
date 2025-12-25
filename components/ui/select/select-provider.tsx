@@ -1,21 +1,22 @@
-"use client"
+"use client";
 import { createContext, RefObject, useContext } from "react";
 
-export type SelectMode = "single" | "multi"
+export type SelectMode = "single" | "multi";
+
+export type SelectItem = { value: string; label: string };
 
 export type SelectValue<T extends SelectMode> =
-  T extends "single" ? string | null : string[];
+  T extends "single" ? SelectItem | null : SelectItem[];
 
 type SelectContextType = {
   id: string;
   open: boolean;
   setOpen: (next: boolean) => void;
-  mode: SelectMode
-  selectedValue: SelectValue<SelectMode>
-  handleSelectValue: (value: string) => void;
-
+  mode: SelectMode;
+  selectedValue: SelectValue<SelectMode>;
+  handleSelectValue: (item: SelectItem) => void;
   listItems: RefObject<HTMLLIElement>[];
-  registerListItems: (ref: RefObject<HTMLLIElement>) => void; 
+  registerListItems: (ref: RefObject<HTMLLIElement>) => void;
 };
 
 export const SelectContext = createContext<SelectContextType>(null!);

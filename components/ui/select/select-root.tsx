@@ -1,30 +1,71 @@
 "use client";
-import { ComponentPropsWithoutRef, RefObject, useRef, useState } from "react";
+
+import {
+  ComponentPropsWithoutRef,
+  RefObject,
+  useRef,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { cn } from "../../../utils/cn";
-import { SelectContext, SelectMode, SelectValue } from "./select-provider";
+import { SelectContext, SelectMode, SelectItem, SelectValue } from "./select-provider";
 import { useGenerateId } from "../../../hooks/use-generate-id";
 import { useClickOutside } from "../../../hooks/use-click-outside";
 import { useRovingFocus } from "../../../hooks/use-roving-focus";
+
+type SelectRootProps = ComponentPropsWithoutRef<"div"> & {
+  mode?: SelectMode;
+  value?: SelectValue<SelectMode>;
+  onChange?: (value: SelectValue<SelectMode>) => void;
+};
 
 export const SelectRoot = ({
   id,
   children,
   className,
   mode = "single",
+  value,
+  onChange,
   ...props
-}: ComponentPropsWithoutRef<"div"> & { mode?: SelectMode }) => {
+}: SelectRootProps) => {
   const generatedId = useGenerateId("select");
   const resolvedId = id || generatedId;
   const selectRef = useRef<HTMLDivElement>(null!);
+
   const [listItems, setListItems] = useState<RefObject<HTMLLIElement>[]>([]);
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState<SelectValue<SelectMode>>(
+  const [internalValue, setInternalValue] = useState<SelectValue<SelectMode>>(
     mode === "single" ? null : []
   );
 
-  const registerListItems = (ref: RefObject<HTMLLIElement>) => {
+  const isControlled = value !== undefined;
+
+  const selectedValue = isControlled ? value : internalValue;  
+
+  const registerListItems = useCallback((ref: RefObject<HTMLLIElement>) => {
     setListItems((prev) => (prev.includes(ref) ? prev : [...prev, ref]));
-  };
+  }, []);
+
+  const handleSelectValue = useCallback(
+    (item: SelectItem) => {
+      let nextValue: SelectValue<SelectMode>;
+
+      if (mode === "single") {
+        nextValue =
+          (selectedValue as SelectItem)?.value === item.value ? null : item;
+      } else {
+        const arr = selectedValue as SelectItem[];
+        nextValue = arr.some((v) => v.value === item.value)
+          ? arr.filter((v) => v.value !== item.value)
+          : [...arr, item];
+      }
+
+      if (!value) setInternalValue(nextValue);
+      onChange?.(nextValue);
+    },
+    [mode, selectedValue, onChange, value]
+  );
 
   const handleKeyDown = useRovingFocus<HTMLLIElement>({
     refs: listItems,
@@ -35,23 +76,15 @@ export const SelectRoot = ({
     onEscape: () => setOpen(false),
   });
 
-  const handleSelectValue = (newValue: string) => {
-    setSelectedValue((prev) => {
-      if (mode === "single") {
-        return prev === newValue ? null : newValue;
-      }
-
-      if (Array.isArray(prev)) {
-        return prev.includes(newValue)
-          ? prev.filter((v) => v !== newValue)
-          : [...prev, newValue];
-      }
-
-      return prev;
-    });
-  };
-
   useClickOutside(selectRef, () => setOpen(false));
+
+
+  useLayoutEffect(() => {
+    if (isControlled && value !== internalValue) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setInternalValue(value);
+    }
+  }, [value, isControlled, internalValue]);    
   return (
     <SelectContext.Provider
       value={{

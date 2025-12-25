@@ -1,4 +1,4 @@
-import { SelectMode, SelectValue } from "../select-provider";
+import { SelectMode, SelectValue, SelectItem } from "../select-provider";
 
 export const triggerLabel = (
   mode: SelectMode,
@@ -6,10 +6,11 @@ export const triggerLabel = (
   placeholder: string
 ) => {
   if (mode === "multi") {
-    if (!value?.length) return placeholder;
-    if (value?.length === 1) return value[0];
-    return `${value?.length} selected`;
+    const arr = value as SelectItem[];
+    if (!arr?.length) return placeholder;
+    if (arr.length === 1) return arr[0].label;
+    return `${arr.length} selected`;
   }
 
-  return value ?? placeholder;
+  return (value as SelectItem | null)?.label ?? placeholder;
 };

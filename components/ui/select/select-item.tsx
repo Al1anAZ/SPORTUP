@@ -1,21 +1,24 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { cn } from "../../../utils/cn";
-import { useSelectContext } from "./select-provider";
+import {
+  SelectItem as SelectItemType,
+  useSelectContext,
+} from "./select-provider";
 import { isSelected } from "./helper/is-selected";
 import { Checkbox } from "../check-box";
 import { modeStyle } from "./helper/mode-style";
 
 export const SelectItem = (
   props: React.ComponentPropsWithoutRef<"li"> & {
-    value: string;
+    item: SelectItemType;
     disabled?: boolean;
   }
 ) => {
-  const { value, className, children, disabled, ...rest } = props;
+  const { item, className, children, disabled, onClick, ...rest } = props;
   const { selectedValue, handleSelectValue, setOpen, registerListItems, mode } =
     useSelectContext();
-  const selected = isSelected(value, mode!, selectedValue);
+  const selected = isSelected(item, mode, selectedValue);
   const listItem = useRef<HTMLLIElement>(null!);
 
   useEffect(() => registerListItems(listItem), [registerListItems]);
@@ -27,11 +30,10 @@ export const SelectItem = (
       aria-selected={selected}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : 0}
-      onClick={() => {
-        handleSelectValue(value);
-        if (mode === "single") {
-          setOpen(false);
-        }
+      onClick={(e) => {
+        handleSelectValue(item);
+        onClick?.(e);
+        if (mode === "single") setOpen(false);
       }}
       className={cn(
         "cursor-pointer text-sm border-b border-b-transparent",
@@ -46,7 +48,7 @@ export const SelectItem = (
       {mode === "multi" && (
         <Checkbox checked={selected!} className="pointer-events-none" />
       )}
-      {children ?? value}
+      {children ?? item.label}
     </li>
   );
 };
