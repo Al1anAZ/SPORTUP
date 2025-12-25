@@ -6,6 +6,7 @@ export interface User {
   phone: string;
   avatarUrl: string;
   address: string;
+  role: UserRole
 }
 
 export type EditableField = keyof ProfileInput;
@@ -15,3 +16,8 @@ export type UserInfoField = {
   label: string;
   hint?: string;
 };
+
+export enum UserRole  {
+  ADMIN = "ADMIN",
+  USER = "USER"
+}

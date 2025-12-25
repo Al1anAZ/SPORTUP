@@ -11,3 +11,4 @@ export * from "./edit";
 export * from "./check";
 export * from "./minus";
 export * from "./plus";
+export * from "./admin";

@@ -32,7 +32,7 @@ export const CatalogFilters = ({ className }: CatalogFiltersProps) => {
         </Text.P>
       </div>
       <div className="flex flex-col gap-3">
-        {["Category", "Brand", "Size", "Color"].map((item, index) => (
+        {["Category", "Brand", "Size", "Color", "Tags"].map((item, index) => (
           <Select mode="multi" key={index}>
             <Select.Trigger placeholder={item} />
             <Select.List className="relative"></Select.List>

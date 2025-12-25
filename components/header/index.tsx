@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Text } from "../ui/typography";
-import { CartIcon, FavoriteIcon, SearchIcon } from "../icons";
+import { AdminIcon, CartIcon, FavoriteIcon, SearchIcon } from "../icons";
 import { UserAuthWidget } from "../auth";
 import { ROUT } from "../../constants";
 import { Button } from "../ui/button";
 import { ProductTag } from "../../types/product";
+import { useAdminPermission } from "../../hooks/use-admin-permission";
 
 export const Header = () => {
+  const { allowed } = useAdminPermission();
   return (
     <header
       className="relative py-5 flex justify-between 
@@ -112,6 +116,16 @@ export const Header = () => {
             <li>
               <UserAuthWidget />
             </li>
+            {allowed && (
+              <li>
+                <Link
+                  href={ROUT.ADMIN}
+                  className="hover:text-[var(--color-blue-light)] transition-all duration-150"
+                >
+                  <AdminIcon width={24} height={24} />
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 href="#"

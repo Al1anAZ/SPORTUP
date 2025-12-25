@@ -21,7 +21,7 @@ export default async function Catalog() {
         <Suspense
           fallback={
             <div className="flex flex-col gap-6 row-span-full">
-              {Array.from({ length: 6 }, (_, index) => (
+              {Array.from({ length: 7 }, (_, index) => (
                 <Skeleton key={`skeleton-${index}`} className="w-full h-10" />
               ))}
             </div>
