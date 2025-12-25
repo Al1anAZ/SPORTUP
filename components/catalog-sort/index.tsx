@@ -1,16 +1,17 @@
 "use client";
+
 import { useCatalogFilters } from "../../hooks/use-catalog-filters";
-import { CatalogSort } from "../../types/catalog-filters";
+import { CatalogSortBy } from "../../types/catalog-filters";
 import { cn } from "../../utils/cn";
 import { Select } from "../ui/select";
 import { SelectItem } from "../ui/select/select-provider";
 import { sortOptions } from "./data";
 
-type ProductSortProps = {
+type CatalogSortProps = {
   className?: string;
 };
 
-export const ProductSort = ({ className }: ProductSortProps) => {
+export const CatalogSort = ({ className }: CatalogSortProps) => {
   const { setFilterValues, filters } = useCatalogFilters();
   const selectedOption =
     sortOptions.find((opt) => opt.value === filters.sortBy) ?? null;
@@ -19,7 +20,7 @@ export const ProductSort = ({ className }: ProductSortProps) => {
       <Select
         value={selectedOption}
         onChange={(item) =>
-          setFilterValues({ sortBy: (item as SelectItem).value as CatalogSort })
+          setFilterValues({ sortBy: (item as SelectItem).value as CatalogSortBy })
         }
       >
         <Select.Trigger placeholder="Select Sort" />

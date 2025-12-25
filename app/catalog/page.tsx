@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import { Breadcrumbs } from "../../components/bread-crumbs";
-import { ProductFilters } from "../../components/product-filters";
-import { ProductFiltersActions } from "../../components/product-filters-actions";
-import { ProductSort } from "../../components/product-sort";
+import { CatalogFilters } from "../../components/catalog-filters";
+import { CatalogFiltersActions } from "../../components/catalog-filters-actions";
+import { CatalogSort } from "../../components/catalog-sort";
 import { ROUT } from "../../constants";
 
 export default async function Catalog() {
@@ -16,9 +17,18 @@ export default async function Catalog() {
         ]}
       />
       <section className="grid grid-cols-4 grid-rows-[41px_auto] gap-6">
-        <ProductFilters className="row-span-full"/>
-        <ProductFiltersActions className="col-span-2 items-end"/>
-        <ProductSort className="flex  justify-end items-end"/>
+        <Suspense fallback={<div>Loading filters...</div>}>
+          <CatalogFilters className="row-span-full" />
+        </Suspense>
+
+        <Suspense fallback={<div>Loading actions...</div>}>
+          <CatalogFiltersActions className="col-span-2 items-end" />
+        </Suspense>
+
+        {/* {todo add skeletons} */}
+        <Suspense fallback={<div>Loading sort...</div>}>
+          <CatalogSort className="flex justify-end items-end" />
+        </Suspense>
       </section>
     </main>
   );

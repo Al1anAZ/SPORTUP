@@ -8,11 +8,11 @@ import { cn } from "../../utils/cn";
 import { useMemo } from "react";
 import debounce from "lodash.debounce";
 
-type ProductFiltersProps = {
+type CatalogFiltersProps = {
   className?: string;
 };
 
-export const ProductFilters = ({ className }: ProductFiltersProps) => {
+export const CatalogFilters = ({ className }: CatalogFiltersProps) => {
   const { filters, setFilterValues } = useCatalogFilters();
 
   const debouncedSetFilterRange = useMemo(

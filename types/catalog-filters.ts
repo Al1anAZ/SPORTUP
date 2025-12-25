@@ -1,7 +1,7 @@
 import { ProductTag } from "./product";
 
 export type CatalogPaginationAndFilterInput = {
-  sortBy: CatalogSort;
+  sortBy: CatalogSortBy;
   page?: number;
   categorySlug?: string[];
   brandSlug?: string[];
@@ -12,7 +12,7 @@ export type CatalogPaginationAndFilterInput = {
   tag?: ProductTag;
 };
 
-export type CatalogSort = "createdAt" | "price" | "priceMax" | undefined
+export type CatalogSortBy = "createdAt" | "price" | "priceMax" | undefined
 
 export type FilterEntry = {
   key: keyof CatalogPaginationAndFilterInput;
